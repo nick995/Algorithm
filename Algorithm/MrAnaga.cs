@@ -16,53 +16,34 @@ namespace Algorithm
 
             int number = int.Parse(line[0]);
 
-            List<string> input = new List<string>();
+            Dictionary<string, bool> dictionary = new Dictionary<string, bool>();
 
-            for (int i=0; i<number; i++)
+            for (int i = 0; i < number; i++)
             {
-                input.Add(Console.ReadLine());
+                dictionary.Add(Console.ReadLine().ToString(), false);
             }
 
-            //bool for if it's checked of not.
-            Dictionary<string, bool> tempDic = new Dictionary<string, bool>();
 
-            //count for how many words are NOT anaga.
-            int count = input.Count;
-            String sortWord = "";
+            Dictionary<string, bool> solutions = new Dictionary<string, bool>();
+            Dictionary<string, bool> rejected = new Dictionary<string, bool>();
 
-            for (int i = 0; i < input.Count; i++)
+            String sortedWord = "";
+
+            foreach (string word in dictionary.Keys)
             {
-                //sort word 
-                sortWord = String.Concat(input[i].OrderBy(c => c));
-                //if it's first insert just add it.
-                if (i == 0)
+                sortedWord = String.Concat(word.OrderBy(c => c));
+
+                if (solutions.ContainsKey(sortedWord))
                 {
-                    tempDic.Add(sortWord.ToString(), false);
+                    solutions.Remove(sortedWord);
+                    rejected.Add(sortedWord, false);
                 }
-                else
+                else if (!rejected.ContainsKey(sortedWord))
                 {
-                    // if it's cotained at dictionary.
-                    if (tempDic.ContainsKey(sortWord))
-                    {
-                        // if stored sortword is not removed yet.
-                        if (!tempDic[sortWord])
-                        {
-                            count -= 2;
-                            tempDic[sortWord] = true;
-                        }
-                        else
-                        {
-                            count--;
-                        }
-                    }
-                    else
-                    {
-                        tempDic.Add(sortWord, false);
-                    }
+                    solutions.Add(sortedWord, false);
                 }
             }
-            Console.WriteLine(count);
-
+            Console.WriteLine(solutions.Count);
         }
     }
 }
