@@ -161,13 +161,6 @@ namespace Test
 
             stack.Push(city);
         }
-
-
-
-
-
-
-
     }
 
 
