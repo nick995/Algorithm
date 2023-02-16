@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CelingFunction", "CelingFun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GalaxyQuest", "GalaxyQuest\GalaxyQuest.csproj", "{6C018029-7BC9-4ED0-AD70-D7F46974BE46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoSink", "AutoSink\AutoSink.csproj", "{1CA738AD-9B7A-4DF1-B2D1-6EF7209C6086}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoSink", "AutoSink\AutoSink.csproj", "{1CA738AD-9B7A-4DF1-B2D1-6EF7209C6086}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RumorMill", "RumorMill\RumorMill.csproj", "{F98BBBFE-44B2-4B5D-806E-B3DE361767DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{1CA738AD-9B7A-4DF1-B2D1-6EF7209C6086}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CA738AD-9B7A-4DF1-B2D1-6EF7209C6086}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CA738AD-9B7A-4DF1-B2D1-6EF7209C6086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F98BBBFE-44B2-4B5D-806E-B3DE361767DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98BBBFE-44B2-4B5D-806E-B3DE361767DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F98BBBFE-44B2-4B5D-806E-B3DE361767DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F98BBBFE-44B2-4B5D-806E-B3DE361767DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
