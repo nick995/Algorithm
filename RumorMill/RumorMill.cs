@@ -19,8 +19,6 @@ namespace RumorMill
 
             Dictionary<string, Student> studentsList = new Dictionary<string, Student>();
 
-            List<string> answer = new List<string>();
-
             int studentCount = int.Parse(Console.ReadLine());
             
             //insert the student to the studentlist
@@ -43,22 +41,42 @@ namespace RumorMill
 
             int rumorCount = int.Parse(Console.ReadLine());
 
-            for(int k=0; k< rumorCount; k++)
+            if (rumorCount>0)
             {
-                string rumorStarter = Console.ReadLine();
+                for (int k = 0; k < rumorCount; k++)
+                {
+                    string rumorStarter = Console.ReadLine();
 
-                RumorSpread(studentsList[rumorStarter], studentsList, answer);
+                    RumorSpread(studentsList[rumorStarter], studentsList);
+
+                }
+            }
+            else
+            {
+                List<string> temp = studentsList.Select(kvp => kvp.Key).ToList();
+
+                temp.Sort();
+                foreach (var item in temp)
+                {
+                    Console.Write(item + " ");
+                }
 
             }
 
         }
 
-        public static void RumorSpread(Student rumorStarter, Dictionary<string, Student> stu, List<string> an)
+        public static void RumorSpread(Student rumorStarter, Dictionary<string, Student> stu)
         {
 
             Dictionary<string, Student> studentList = new Dictionary<string, Student>(stu);
 
-            List<string>answer = new List<string>(an);
+            List<List<string>>dayList = new List<List<string>>();
+
+            //initializing.
+            for(int z= 0; z<4; z++)
+            {
+                dayList.Add(new List<string>());
+            }
 
             rumorStarter.day = 0;
 
@@ -74,7 +92,7 @@ namespace RumorMill
                 {
                     if (student.visited == false)
                     {
-                        answer.Add(student.name);    //adding answer.
+                        dayList[student.day].Add(student.name);    //adding answer.
 
                         studentList.Remove(student.name); 
                     }
@@ -91,24 +109,33 @@ namespace RumorMill
                             s.day = student.day + 1;
                         }
                     }
+                }else if (student.day < 4)
+                {
+                    break;
                 }
             }
-
+            //=====================================================
             if (studentList.Count() > 0)
             {
+                //failer list
                 List<string> temp = studentList.Select(kvp => kvp.Key).ToList();
 
                 temp.Sort();
 
                 foreach (string s in temp)
                 {
-                    answer.Add(s);
+                    dayList[3].Add(s);
                 }
             }
 
-            foreach (string s in answer)
+            foreach (List<string> day in dayList)
             {
-                Console.Write(s + " ");
+                day.Sort();
+
+                foreach(string s in day)
+                {
+                    Console.Write(s + " ");
+                }
             }
         }
 
