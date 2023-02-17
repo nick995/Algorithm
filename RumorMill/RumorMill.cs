@@ -15,8 +15,6 @@ namespace RumorMill
 
         public static void Main(string[] args) {
 
-
-
             Dictionary<string, Student> studentsList = new Dictionary<string, Student>();
 
             int studentCount = int.Parse(Console.ReadLine());
@@ -58,7 +56,7 @@ namespace RumorMill
                 temp.Sort();
                 foreach (var item in temp)
                 {
-                    Console.Write(item + " ");
+                    Console.Write(item);
                 }
 
             }
@@ -67,18 +65,28 @@ namespace RumorMill
 
         public static void RumorSpread(Student rumorStarter, Dictionary<string, Student> stu)
         {
+            //var copied = new Dictionary<string, Student>(stu);
 
-            Dictionary<string, Student> studentList = new Dictionary<string, Student>(stu);
+            var copied = new Dictionary<string, Student>(stu);
+
+            foreach(Student s in copied.Values)
+            {
+                s.day = 0;
+                s.visited = false;
+                s.inQueue = false;
+            }
+
 
             List<List<string>>dayList = new List<List<string>>();
 
             //initializing.
-            for(int z= 0; z<4; z++)
+            for(int z= 0; z<2000; z++)
             {
                 dayList.Add(new List<string>());
             }
 
             rumorStarter.day = 0;
+            rumorStarter.visited= false;
 
             Queue<Student> queue = new Queue<Student>();
 
@@ -86,57 +94,60 @@ namespace RumorMill
 
             while (queue.Count > 0)
             {
-                Student student = queue.Dequeue();  //pointing same memory.
+                Student student = queue.Dequeue();
 
-                if (student.day<3)
+                //IEnumerable<Student> orderByName = student.friendList.OrderBy(p => p.name);
+                if (student.visited == false)
                 {
-                    if (student.visited == false)
+                    dayList[student.day].Add(student.name);    //adding answer.
+
+                    copied.Remove(student.name);
+                }
+
+                student.visited = true; //change to visit.
+                foreach (Student s in student.friendList)
+                {
+                    if (!s.visited && !s.inQueue )
                     {
-                        dayList[student.day].Add(student.name);    //adding answer.
-
-                        studentList.Remove(student.name); 
+                        queue.Enqueue(s);
+                        s.day = student.day + 1;
+                        s.inQueue=true;
+                        //Console.WriteLine(s.name + " day is " + s.day);
                     }
+                }
+            }
 
-                    student.visited = true; //change to visit.
+            //=====================================================
 
-                    IEnumerable<Student> orderByName = student.friendList.OrderBy(p => p.name);
-
-                    foreach (Student s in orderByName)
-                    {
-                        if (!s.visited)
-                        {
-                            queue.Enqueue((Student)s);
-                            s.day = student.day + 1;
-                        }
-                    }
-                }else if (student.day < 4)
+            StringBuilder stringBuilder= new StringBuilder();
+            foreach (List<string> day in dayList)
+            {
+                if(day.Count == 0)
                 {
                     break;
                 }
+                day.Sort();
+
+                foreach(string s in day)
+                {
+                    stringBuilder.Append(s);
+                    stringBuilder.Append(" ");
+                }
             }
-            //=====================================================
-            if (studentList.Count() > 0)
+
+            if (copied.Count() > 0)
             {
                 //failer list
-                List<string> temp = studentList.Select(kvp => kvp.Key).ToList();
+                List<string> temp = copied.Select(kvp => kvp.Key).ToList();
 
                 temp.Sort();
 
                 foreach (string s in temp)
                 {
-                    dayList[3].Add(s);
+                    stringBuilder.Append(s + " ");
                 }
             }
-
-            foreach (List<string> day in dayList)
-            {
-                day.Sort();
-
-                foreach(string s in day)
-                {
-                    Console.Write(s + " ");
-                }
-            }
+            Console.WriteLine(stringBuilder.ToString());
         }
 
 
@@ -168,8 +179,18 @@ namespace RumorMill
             public bool visited { get; set; }
             public string name { get;  set; }
             public int day { get;  set; }
-            public List<Student> friendList { get;}
+            public List<Student> friendList { get; set; }
+            public bool inQueue { get; set; }
 
+            public Student DeepCopy()
+            {
+                Student deepCopy = new Student(0, this.name);
+
+                deepCopy.friendList = this.friendList;
+                deepCopy.visited = false;
+
+                return deepCopy;
+            }
         }
     }
 }
