@@ -74,23 +74,6 @@ namespace Test
                     Console.WriteLine(answer);
                 }
             }
-
-
-            //start.totalPrice = 0;
-            //dest.totalPrice = int.MaxValue;
-            //foreach(City topolCity in stack)
-            //{
-
-            //    foreach(City city in citylist[topolCity])
-            //    {
-            //        if(topolCity.totalPrice + city.price < city.totalPrice)
-            //        {
-            //            city.totalPrice = topolCity.totalPrice + city.price;
-            //        }
-            //    }
-
-            //}
-
         }
 
         public static int CalMimum(City start, City dest, Stack<City> topolResult)
@@ -174,13 +157,11 @@ namespace Test
             this.cityName = cityName;
             this.price = price;
             visited = false;
-            //totalPrice = int.MaxValue;
         }
 
         public bool visited { get; set; }
         public string cityName { get; set; }
         public int price { get; set; }
-        //public int totalPrice { get; set; }
     }
 
 
